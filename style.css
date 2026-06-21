@@ -480,12 +480,13 @@ section {
     font-size: 0.55em; /* Letra muy pequeñita */
     background-color: #222; /* Fondo gris oscuro */
     color: #d4af37;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 12px; /* Bordes redondeados */
     margin-left: 10px;
     vertical-align: middle;
     letter-spacing: 1px;
     border: 1px solid #333;
+    white-space: nowrap;
 }
 
 .clickable-dish:hover {
