@@ -48,11 +48,18 @@ header {
 /* Estilo del botón hamburguesa (Oculto en PC) */
 .mobile-menu-btn {
     display: none;
-    background: none;
-    border: none;
-    color: #d4af37;
-    font-size: 30px;
+    background-color: transparent !important;
+    background: none !important;
+    border: none !important;
+    outline: none !important; /* Mata el borde de enfoque automático */
+    box-shadow: none !important; /* Mata la sombra blanca del iPhone */
+    color: #d4af37 !important;
+    font-size: 35px; 
     cursor: pointer;
+    -webkit-appearance: none !important; /* Magia anti-iPhone/WebKit */
+    appearance: none !important;
+    padding: 0;
+    margin: 0;
 }
 
 nav ul {
@@ -240,11 +247,15 @@ section {
         display: block; 
     }
 
+  
     /* --- Header / Navegación Hamburguesa --- */
     .header-container {
-        flex-direction: row; /* Logo a la izquierda, botón a la derecha */
+        display: flex !important;
+        flex-direction: row !important; /* Logo a la izq, botón a la der */
+        justify-content: space-between !important; 
+        align-items: center !important;
         padding: 10px 20px;
-        align-items: center;
+        width: 100%;
     }
 
     .logo-container {
