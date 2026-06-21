@@ -217,26 +217,138 @@ section {
     transform: scale(1.05);
 }
 
-/* Responsivo para celulares */
+/* =========================================================
+   NUEVO RESPONSIVO MEJORADO PARA CELULARES
+========================================================= */
 @media (max-width: 768px) {
+    /* Ajuste general de secciones */
+    section {
+        padding: 80px 15px 30px; /* Reducimos padding superior e lateral */
+        min-height: auto; /* Que no obligue a ocupar toda la pantalla */
+        display: block; /* Cambiamos de flex a block para mejor control */
+    }
+
+    /* --- Header / Navegación Centrada --- */
     .header-container {
-        flex-direction: column;
+        flex-direction: column; /* Logo arriba, menú abajo */
         padding: 15px;
+        gap: 10px; /* Espacio entre logo y menú */
     }
+
+    .logo-container {
+        display: flex;
+        justify-content: center; /* Centra el logo horizontalmente */
+        width: 100%;
+    }
+    
+    .logo-container img {
+        height: 50px; /* Un poco más pequeño en móvil */
+    }
+
     nav ul {
-        margin-top: 15px;
-        gap: 15px;
-        font-size: 12px;
+        flex-direction: column; /* Menú en formato lista vertical */
+        gap: 8px; /* Menos espacio entre enlaces */
+        text-align: center;
+        width: 100%;
+        padding: 0;
     }
+    
+    nav a {
+        font-size: 13px;
+        letter-spacing: 1px;
+        display: block; /* Ocupar ancho completo para clics fáciles */
+        padding: 8px; /* Padding para que sea más fácil tocar */
+    }
+
+    /* --- Sección Inicio Centrada y Ajustada --- */
     .hero-container {
         flex-direction: column;
         text-align: center;
-        margin-top: 50px;
+        gap: 20px;
+        padding-top: 30px;
     }
-    .menu-grid {
+
+    .hero-left, .hero-right {
+        max-width: 100%;
+        padding: 0;
+        display: flex;
         flex-direction: column;
+        align-items: center; /* Centra el contenido internamente */
     }
+
+    .hero-img {
+        max-width: 80%; /* Centrar y no ocupar todo el ancho */
+        margin: 0 auto;
+    }
+
     .hero-right h1 {
-        font-size: 3rem;
+        font-size: 2.2rem; /* Achicamos el texto grande para que no desborde */
+        margin-bottom: 5px;
+    }
+
+    .hero-right span {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        letter-spacing: 3px;
+        margin-bottom: 20px;
+    }
+
+    /* --- Sección Menú Centrada --- */
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .menu-grid {
+        flex-direction: column; /* Columnas se apilan */
+        gap: 15px;
+        align-items: center; /* Centrar las columnas en el viewport */
+    }
+
+    .menu-col {
+        width: 100%;
+        max-width: 320px; /* Limitar ancho para que parezca una carta de menú */
+        margin: 0 auto; /* Asegurar centrado */
+    }
+
+    .category-title {
+        text-align: center;
+        font-size: 1.1rem;
+        margin-top: 20px;
+    }
+
+    .menu-item {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        padding: 0 10px; /* Padding para que no toque bordes */
+    }
+
+    .side-options {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .menu-decor-img {
+        max-width: 250px; /* Decoración central y chica */
+        display: block;
+        margin: 20px auto;
+    }
+
+    /* --- Secciones de Texto --- */
+    .somos-container, .contacto-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .somos-container h2, .contacto-container h2 {
+        font-size: 2rem;
+    }
+
+    .btn-instagram {
+        width: 100%; /* Botón ancho completo en móvil */
+        max-width: 280px; /* Pero no gigante */
     }
 }
