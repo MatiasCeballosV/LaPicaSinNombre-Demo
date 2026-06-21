@@ -63,16 +63,24 @@
                     <div id="lista-cafeteria"></div>
                     <p class="side-options">Café de grano - Té de infusión - Tortas - Pie de limón - Brownie</p>
 
-                    <img src="images/tallarines.png" alt="Pasta" class="menu-decor-img">
+                    <h3 class="category-title">Pastelería</h3>
+                    <div id="lista-pasteleria"></div>
+
                 </div>
             </div>
         </div>
     </section>
 
     <section id="somos" class="somos-section">
-        <div class="somos-container">
-            <h2>Sobre Nosotros</h2>
-            <p>En La Picá Sin Nombre, preparamos comida 100% casera con los mejores ingredientes y la tradición de siempre. Nuestro menú cambia cada día para ofrecerte lo más fresco.</p>
+        <div class="somos-container somos-split">
+            <div class="somos-text">
+                <h2>Sobre Nosotros</h2>
+                <p>En La Picá Sin Nombre, preparamos comida 100% casera con los mejores ingredientes y la tradición de siempre. Nuestro menú cambia cada día para ofrecerte lo más fresco.</p>
+                <a href="#menu" class="btn-secondary">Volver a la Carta</a>
+            </div>
+            <div class="somos-image">
+                <img src="images/papas_carne.png" alt="Platos caseros de La Picá Sin Nombre" class="img-somos-decor">
+            </div>
         </div>
     </section>
 
@@ -84,50 +92,97 @@
         </div>
     </section>
 
+    <div id="image-modal" class="menu-modal">
+        <span class="close-modal">&times;</span>
+        
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="Vista del plato">
+            <p id="modal-caption" class="modal-caption"></p>
+        </div>
+    </div>
+
     <script>
-        const urlCSV = 'https://script.google.com/macros/s/AKfycbzerLdx6heA87FH0cFr8UTEc4RirQaM7j24M6PS0eXxdnjO2PkNuX_ugq8oz4GhZJDl/exec';
+        // ==========================================
+        // 1. LÓGICA DEL MENÚ HAMBURGUESA
+        // ==========================================
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('#nav-menu a');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // ==========================================
+        // 2. CONEXIÓN EN TIEMPO REAL CON EXCEL (JSON)
+        // ==========================================
+        const urlAPI = 'https://script.google.com/macros/s/AKfycbw5QLy8rGUxXe2XPXIyso8MpUVTfai4dXcGfqtm8fGUKDvYZs01c_eLy9YhtqtNTSsYdg/exec';
+
+        // ** MAPEO DE IMÁGENES **
+        const dishImagesMap = {
+            "Pastel de choclo": "images/tallarines.png", // <--- Tu imagen conectada
+            "Guatitas a la jardinera": "images/papas.png", // <--- Plantillas futuras
+            "Tortilla de verduras": "images/tortillas.png", // <--- Plantillas futuras
+            "Salsa de Guinda": "images/Pastel_choclo.png" // <--- Plantillas futuras
+        };
 
         async function cargarMenu() {
             try {
-                // 1. Descargamos los datos del Excel
-                const respuesta = await fetch(urlCSV);
-                const datos = await respuesta.text();
+                const respuesta = await fetch(urlAPI);
+                const datos = await respuesta.json(); 
 
-                // 2. Separamos por filas y quitamos la cabecera (primera fila)
-                const filas = datos.split('\n').slice(1);
-
-                // 3. Variables para agrupar el HTML de cada categoría
                 let htmlEntradas = '';
                 let htmlPrincipales = '';
                 let htmlAcompanamiento = '';
                 let htmlCafeteria = '';
+                let htmlPasteleria = ''; // <-- Recuperamos Pastelería
 
-                // 4. Recorremos cada fila del Excel
-                filas.forEach(fila => {
-                    // Separamos las 3 columnas por la coma
-                    const [categoria, plato, precio] = fila.split(',');
+                for (let i = 1; i < datos.length; i++) {
+                    const fila = datos[i];
+                    const categoria = fila[0];
+                    const plato = fila[1];
+                    const precio = fila[2];
 
-                    // Si la fila no está vacía
                     if (categoria && plato && precio) {
-                        // Limpiamos espacios en blanco
-                        const catLimpia = categoria.trim();
+                        const catLimpia = String(categoria).trim();
+                        const dishName = String(plato).trim();
                         
-                        // Armamos el diseño del plato
-                        const itemHTML = `<div class="menu-item"><span>${plato.trim()}</span> <span class="price">$${precio.trim()}</span></div>`;
+                        const imgSrc = dishImagesMap[dishName]; 
+                        let dishSpanHTML;
 
-                        // Lo asignamos a la categoría correspondiente
+                        if (imgSrc) {
+                            dishSpanHTML = `<span class="clickable-dish" data-image="${imgSrc}">${dishName}</span>`;
+                        } else {
+                            dishSpanHTML = `<span>${dishName}</span>`;
+                        }
+
+                        const itemHTML = `<div class="menu-item">${dishSpanHTML} <span class="price">$${String(precio).trim()}</span></div>`;
+
                         if (catLimpia === 'Entradas') htmlEntradas += itemHTML;
                         if (catLimpia === 'Platos Principales') htmlPrincipales += itemHTML;
                         if (catLimpia === 'Acompañamiento') htmlAcompanamiento += itemHTML;
                         if (catLimpia === 'Cafeteria') htmlCafeteria += itemHTML;
+                        if (catLimpia === 'Pasteleria') htmlPasteleria += itemHTML; // <-- Filtro de Pastelería
                     }
-                });
+                }
 
-                // 5. Inyectamos el HTML en la página
                 document.getElementById('lista-entradas').innerHTML = htmlEntradas;
                 document.getElementById('lista-principales').innerHTML = htmlPrincipales;
                 document.getElementById('lista-acompanamiento').innerHTML = htmlAcompanamiento;
                 document.getElementById('lista-cafeteria').innerHTML = htmlCafeteria;
+                
+                // Inyectamos Pastelería (Solo si la caja existe en el HTML)
+                if (document.getElementById('lista-pasteleria')) {
+                    document.getElementById('lista-pasteleria').innerHTML = htmlPasteleria;
+                }
+
+                inicializarInteracciones();
 
             } catch (error) {
                 console.error("Error al cargar el menú:", error);
@@ -135,7 +190,78 @@
             }
         }
 
-        // Ejecutamos la función apenas cargue la página
+        // ==========================================
+        // 3. LÓGICA HÍBRIDA: FLOTANTE (PC) + MODAL (Celular)
+        // ==========================================
+        function inicializarInteracciones() {
+            // Elementos del Modal (Celular)
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalCaption = document.getElementById('modal-caption');
+            const closeBtn = document.querySelector('.close-modal');
+            
+            // Creamos dinámicamente la caja para la foto flotante (PC)
+            let hoverPreview = document.getElementById('hover-preview');
+            if (!hoverPreview) {
+                hoverPreview = document.createElement('div');
+                hoverPreview.id = 'hover-preview';
+                hoverPreview.className = 'hover-preview';
+                hoverPreview.innerHTML = '<img id="hover-img" src="">';
+                document.body.appendChild(hoverPreview);
+            }
+            const hoverImg = document.getElementById('hover-img');
+
+            const clickableDishes = document.querySelectorAll('.clickable-dish');
+
+            clickableDishes.forEach(dish => {
+                // -- 1. COMPORTAMIENTO CELULAR (CLIC) --
+                dish.addEventListener('click', function() {
+                    const imgSrc = this.getAttribute('data-image');
+                    const dishTitle = this.textContent;
+                    
+                    hoverPreview.style.display = 'none'; // Apagamos el flotante si hay clic
+                    modal.classList.add('active'); // Abrimos pantalla completa oscura
+                    modalImg.src = imgSrc;
+                    modalCaption.textContent = dishTitle;
+                });
+
+                // -- 2. COMPORTAMIENTO PC (PASAR EL MOUSE) --
+                dish.addEventListener('mouseenter', function(e) {
+                    // Solo activar si la pantalla es ancha (como un PC)
+                    if (window.innerWidth > 768) {
+                        hoverImg.src = this.getAttribute('data-image');
+                        hoverPreview.style.display = 'block';
+                        hoverPreview.style.left = (e.clientX + 20) + 'px'; // Posicionar junto al mouse
+                        hoverPreview.style.top = (e.clientY + 20) + 'px';
+                    }
+                });
+
+                dish.addEventListener('mousemove', function(e) {
+                    if (window.innerWidth > 768) {
+                        hoverPreview.style.left = (e.clientX + 20) + 'px'; // La foto sigue al cursor
+                        hoverPreview.style.top = (e.clientY + 20) + 'px';
+                    }
+                });
+
+                dish.addEventListener('mouseleave', function() {
+                    hoverPreview.style.display = 'none'; // Ocultar foto al quitar el mouse
+                });
+            });
+
+            // Cerrar Modal
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape" && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+
         cargarMenu();
     </script>
 </body>
