@@ -12,7 +12,12 @@
             <div class="logo-container">
                 <img src="images/logo.jpg" alt="Logo La Picá Sin Nombre">
             </div>
-            <nav>
+            
+            <button id="menu-toggle" class="mobile-menu-btn">
+                &#9776;
+            </button>
+
+            <nav id="nav-menu">
                 <ul>
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#menu">Menú</a></li>
@@ -90,5 +95,24 @@
         </div>
     </section>
 
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('#nav-menu a');
+
+        // Abrir y cerrar el menú al tocar el botón
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar el menú automáticamente al elegir una opción
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
 </body>
+
 </html>
+

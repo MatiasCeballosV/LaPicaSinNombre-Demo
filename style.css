@@ -1,4 +1,4 @@
-/* Reset y Configuración Base */
+/* Reset y Configuración Base (Con bloqueo de scroll horizontal) */
 * {
     margin: 0;
     padding: 0;
@@ -7,16 +7,16 @@
 
 html {
     scroll-behavior: smooth; 
-    overflow-x: hidden; /* Evita el scroll horizontal en el documento */
+    overflow-x: hidden; 
     width: 100%;
 }
 
 body {
-    background-color: #0a0a0a;
+    background-color: #0a0a0a; 
     color: #f5f5f5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    overflow-x: hidden; /* Evita el scroll horizontal en el cuerpo */
+    overflow-x: hidden; 
     width: 100%;
     position: relative;
 }
@@ -42,7 +42,17 @@ header {
 
 .logo-container img {
     height: 70px;
-    border-radius: 5px; /* Suaviza los bordes del logo cuadrado */
+    border-radius: 5px; 
+}
+
+/* Estilo del botón hamburguesa (Oculto en PC) */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #d4af37;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 nav ul {
@@ -61,12 +71,12 @@ nav a {
 }
 
 nav a:hover {
-    color: #d4af37; /* Color dorado al pasar el mouse */
+    color: #d4af37; 
 }
 
 /* Secciones Generales para el Scroll */
 section {
-    padding: 100px 20px 50px; /* Padding top de 100px para que el header fijo no tape el título */
+    padding: 100px 20px 50px; 
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -106,7 +116,7 @@ section {
 .subtitle {
     font-size: 1.2rem;
     letter-spacing: 5px;
-    color: #d4af37; /* Tono dorado combinando con la estética */
+    color: #d4af37; 
     margin-bottom: 30px;
 }
 
@@ -204,7 +214,6 @@ section {
 }
 
 .btn-instagram {
-    /* Fondo con el degradado de Instagram */
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: white;
     padding: 15px 30px;
@@ -213,58 +222,76 @@ section {
     border-radius: 30px;
     display: inline-block;
     margin-top: 20px;
-    transition: transform 0.3s ease; /* Efecto suave de movimiento */
+    transition: transform 0.3s ease; 
 }
 
-/* Efecto para que el botón crezca un poco al pasar el mouse */
 .btn-instagram:hover {
     transform: scale(1.05);
 }
 
 /* =========================================================
-   NUEVO RESPONSIVO MEJORADO PARA CELULARES
+   NUEVO RESPONSIVO MEJORADO PARA CELULARES (CON HAMBURGUESA)
 ========================================================= */
 @media (max-width: 768px) {
     /* Ajuste general de secciones */
     section {
-        padding: 80px 15px 30px; /* Reducimos padding superior e lateral */
-        min-height: auto; /* Que no obligue a ocupar toda la pantalla */
-        display: block; /* Cambiamos de flex a block para mejor control */
+        padding: 80px 15px 30px; 
+        min-height: auto; 
+        display: block; 
     }
 
-    /* --- Header / Navegación Centrada --- */
+    /* --- Header / Navegación Hamburguesa --- */
     .header-container {
-        flex-direction: column; /* Logo arriba, menú abajo */
-        padding: 15px;
-        gap: 10px; /* Espacio entre logo y menú */
+        flex-direction: row; /* Logo a la izquierda, botón a la derecha */
+        padding: 10px 20px;
+        align-items: center;
     }
 
     .logo-container {
-        display: flex;
-        justify-content: center; /* Centra el logo horizontalmente */
-        width: 100%;
+        width: auto;
     }
     
     .logo-container img {
-        height: 50px; /* Un poco más pequeño en móvil */
+        height: 50px; 
+    }
+
+    .mobile-menu-btn {
+        display: block; /* Muestra el botón de 3 rayitas */
+    }
+
+    nav {
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #000;
+        border-top: 1px solid #333;
+        padding-bottom: 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.8); /* Sombra para que se note al bajar */
+    }
+
+    nav.active {
+        display: block; /* El JS activa esto al tocar el botón */
     }
 
     nav ul {
-        flex-direction: column; /* Menú en formato lista vertical */
-        gap: 8px; /* Menos espacio entre enlaces */
+        flex-direction: column;
+        gap: 0;
         text-align: center;
         width: 100%;
         padding: 0;
     }
     
     nav a {
-        font-size: 13px;
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid #222;
+        font-size: 16px;
         letter-spacing: 1px;
-        display: block; /* Ocupar ancho completo para clics fáciles */
-        padding: 8px; /* Padding para que sea más fácil tocar */
     }
 
-    /* --- Sección Inicio Centrada y Ajustada --- */
+    /* --- Sección Inicio Centrada --- */
     .hero-container {
         flex-direction: column;
         text-align: center;
@@ -277,16 +304,16 @@ section {
         padding: 0;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centra el contenido internamente */
+        align-items: center;
     }
 
     .hero-img {
-        max-width: 80%; /* Centrar y no ocupar todo el ancho */
+        max-width: 80%;
         margin: 0 auto;
     }
 
     .hero-right h1 {
-        font-size: 2.2rem; /* Achicamos el texto grande para que no desborde */
+        font-size: 2.2rem; 
         margin-bottom: 5px;
     }
 
@@ -307,15 +334,15 @@ section {
     }
 
     .menu-grid {
-        flex-direction: column; /* Columnas se apilan */
+        flex-direction: column; 
         gap: 15px;
-        align-items: center; /* Centrar las columnas en el viewport */
+        align-items: center; 
     }
 
     .menu-col {
         width: 100%;
-        max-width: 320px; /* Limitar ancho para que parezca una carta de menú */
-        margin: 0 auto; /* Asegurar centrado */
+        max-width: 320px; 
+        margin: 0 auto; 
     }
 
     .category-title {
@@ -327,7 +354,7 @@ section {
     .menu-item {
         font-size: 1rem;
         margin-bottom: 10px;
-        padding: 0 10px; /* Padding para que no toque bordes */
+        padding: 0 10px; 
     }
 
     .side-options {
@@ -336,7 +363,7 @@ section {
     }
 
     .menu-decor-img {
-        max-width: 250px; /* Decoración central y chica */
+        max-width: 250px; 
         display: block;
         margin: 20px auto;
     }
@@ -352,7 +379,7 @@ section {
     }
 
     .btn-instagram {
-        width: 100%; /* Botón ancho completo en móvil */
-        max-width: 280px; /* Pero no gigante */
+        width: 100%; 
+        max-width: 280px; 
     }
 }
