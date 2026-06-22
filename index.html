@@ -162,7 +162,7 @@
                             dishSpanHTML = `<span>${dishName}</span>`;
                         }
 
-                        const itemHTML = `<div class="menu-item">${dishSpanHTML} <span class="price">$${String(precio).trim()}</span></div>`;
+                        const itemHTML = `<div class="menu-item">${dishSpanHTML} <span class="price">${String(precio).trim()}</span></div>`;
 
                         if (catLimpia === 'Entradas') htmlEntradas += itemHTML;
                         if (catLimpia === 'Platos Principales') htmlPrincipales += itemHTML;
