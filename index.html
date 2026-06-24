@@ -11,18 +11,26 @@
         <div class="header-container">
             <div class="logo-container">
                 <img src="images/logo.jpg" alt="Logo La Picá Sin Nombre">
+                
             </div>
-            
+
+            <div class="horario-texto">
+            Horario de Atención 12:00 a 17:00 hrs
+            </div>
+                
             <button id="menu-toggle" class="mobile-menu-btn">
                 &#9776;
             </button>
 
             <nav id="nav-menu">
                 <ul>
+                    
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#menu">Menú</a></li>
                     <li><a href="#somos">Somos</a></li>
                     <li><a href="#contacto">Contacto</a></li>
+                    
+
                 </ul>
             </nav>
         </div>
@@ -167,7 +175,7 @@
                             dishSpanHTML = `<span>${dishName}</span>`;
                         }
 
-                        const itemHTML = `<div class="menu-item">${dishSpanHTML} <span class="price">${String(precio).trim()}</span></div>`;
+                        const itemHTML = `<div class="menu-item">${dishSpanHTML} <span class="price">$${String(precio).trim()}</span></div>`;
 
                         if (catLimpia === 'Entradas') htmlEntradas += itemHTML;
                         if (catLimpia === 'Platos Principales') htmlPrincipales += itemHTML;
