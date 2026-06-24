@@ -243,6 +243,31 @@ section {
     transform: scale(1.05);
 }
 
+/* --- Estilos del texto del horario --- */
+.horario-texto {
+    color: #ffffff; /* Letra blanca */
+    font-size: 15px; /* Tamaño normal para computadora */
+    font-weight: 300; 
+    text-align: center;
+    flex-grow: 1; /* Esto hace que el texto ocupe todo el espacio central disponible */
+    flex-direction: column;
+    padding: 0 10px;
+    white-space: nowrap; /* Evita que el texto se rompa en dos líneas si es posible */
+}
+
+/* Asegurar que el botón de hamburguesa sea dorado (como en tu foto) */
+.mobile-menu-btn {
+    color: #eab308; /* Color dorado */
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+
+
+
+
 /* =========================================================
    NUEVO RESPONSIVO MEJORADO PARA CELULARES (CON HAMBURGUESA)
 ========================================================= */
@@ -264,6 +289,14 @@ section {
         padding: 10px 20px;
         width: 100%;
     }
+
+    /* 👇 AGREGA ESTO AQUÍ 👇 */
+    .horario-texto {
+        font-size: 11px; /* Letra más pequeña para que entre perfecto en el celular */
+        letter-spacing: 0.5px;
+        white-space: normal; /* Permite que, si la pantalla es MUY pequeña, se divida en 2 líneas en vez de salirse */
+    }
+    /* 👆 HASTA AQUÍ 👆 */
 
     .logo-container {
         width: auto;
