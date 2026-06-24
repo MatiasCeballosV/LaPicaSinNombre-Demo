@@ -180,12 +180,19 @@ section {
 .menu-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    align-items: flex-start; /* Mantiene los textos alineados arriba si uno ocupa dos líneas */
+    gap: 15px; /* Obliga a que SIEMPRE haya un margen de seguridad entre el plato y el precio */
+    margin-bottom: 12px;
+    border-bottom: 1px dotted #333; /* Opcional: Línea separadora sutil */
+    padding-bottom: 5px;
 }
 
 .price {
     font-weight: bold;
+    text-align: right; /* Asegura que el texto largo crezca hacia la izquierda */
+    max-width: 55%; /* Le prohíbe al texto ocupar más de la mitad de la pantalla */
+    line-height: 1.3; /* Mejora la lectura si el texto se parte en dos líneas */
+    word-wrap: break-word; /* Evita que una palabra gigante rompa la pantalla */
     color: #fff;
 }
 

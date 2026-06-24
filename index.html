@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Picá Sin Nombre - Menú</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STV7X935F3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-STV7X935F3');
-    </script>
 </head>
 <body>
     <header>
@@ -132,14 +122,15 @@
         // ==========================================
         // 2. CONEXIÓN EN TIEMPO REAL CON EXCEL (JSON)
         // ==========================================
-        const urlAPI = 'https://script.google.com/macros/s/AKfycbxAddIr5wq28jYFOJOQjw8muiy3ToGbjrauK3a9aJ4SkGMC9am7KEci_0xyow5OlAPI9w/exec';
+        const urlAPI = 'https://script.google.com/macros/s/AKfycbw5QLy8rGUxXe2XPXIyso8MpUVTfai4dXcGfqtm8fGUKDvYZs01c_eLy9YhtqtNTSsYdg/exec';
 
         // ** MAPEO DE IMÁGENES **
         const dishImagesMap = {
             "Pastel de choclo": "images/tallarines.png", // <--- Tu imagen conectada
             "Guatitas a la jardinera": "images/papas.png", // <--- Plantillas futuras
             "Tortilla de verduras": "images/tortillas.png", // <--- Plantillas futuras
-            "Salsa de Guinda": "images/pastel_choclo.png" // <--- Plantillas futuras
+            "Salsa de Guinda": "images/pastel_choclo.png",
+            "Asado Aleman":" images/asado_aleman.png" // <--- Plantillas futuras
         };
 
         async function cargarMenu() {
@@ -172,7 +163,7 @@
                             dishSpanHTML = `<span>${dishName}</span>`;
                         }
 
-                        const itemHTML = `<div class="menu-item">${dishSpanHTML} <span class="price">${String(precio).trim()}</span></div>`;
+                        const itemHTML = `<div class="menu-item">${dishSpanHTML} <span class="price">$${String(precio).trim()}</span></div>`;
 
                         if (catLimpia === 'Entradas') htmlEntradas += itemHTML;
                         if (catLimpia === 'Platos Principales') htmlPrincipales += itemHTML;
